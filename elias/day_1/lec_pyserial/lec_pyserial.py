@@ -20,7 +20,7 @@ def openSerial(port, baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PAR
     ser.baudrate = baudrate     # Baudrate 속도: 9600, 115200, ...
     ser.bytesize = bytesize     # Data Bit
     ser.parity = parity         # Check Parity
-    ser.timeout = time          # Timeout None: 무한대기, n: n초 대기
+    ser.timeout = timeout          # Timeout None: 무한대기, n: n초 대기
     ser.xonxoff = xonxoff       # Sw Flow control
     ser.rtscts = rtscts         # RTS/CTS Flow control
     ser.dsrdtr = dsrdtr         # DSR/DTR Flow control
@@ -32,6 +32,12 @@ def openSerial(port, baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PAR
     # ser = serial.Serial(port, baudrate, ...)
 
     return ser
+
+if __name__ == '__main__':
+    # 포트열기
+    ser = openSerial(port='com2')
+    time.sleep(100)
+
 
 
 
