@@ -6,6 +6,7 @@
 #       01: 켜짐
 #       ff(FF): 상태값
 # ex) ka 01 01, ka 01 00, ka 01 ff
+from Tools.scripts.var_access_benchmark import read_deque
 
 # Acknowledgement(응답값)
 # [a][ ][Set ID][ ][OK/NG][Data][x]
@@ -45,7 +46,100 @@ def main():
     ic('Program is running...')
 
     while True:
-        pass
+        # 엔터키가 입력될때까지 데이터를 read
+        readed = ser.readUntilExitCode(RETURN_CODE)
+        ic(readed)
+
+        # Parsing을 위한 String객체로 Decoding
+        readed = readed.decode() # Bytes array --> Unicode String Object
+        readed = readed.lower()  # 문자열 전체를 다 소문자로 변경 KA, kA, Ka, ka
+        ic(readed)
+
+        # 프로그램 종료확인
+        if readed == 'exit':
+            ic('Done')
+            break
+
+        # ka 01 00
+        # ka : Command
+        # 01 : Set ID
+        # 00 : value (00: Power Off, 01: Power On, FF: Get Current Power State)
+        datalist = readed.split(' ') # 'ka 01 00' --> ['ka', '01', '00']
+
+        # Command Format 점검
+        if not(len(readed) ==8 and len(datalist) ==3):
+            msg = 'Wrong command format!!!\r\n'
+            ic(msg)
+            ser.writePortUnicode(msg)
+            continue
+
+        command = datalist[0] # ka
+        setId = datalist[1]   # 01
+        value = datalist[2]   # 00
+        # command, setId, value = datalist # Unpacking...
+        ic(command, setId, value)
+
+        response = ''
+
+        # 명령어 확인
+        if command == 'ka':
+            # todo: ka 커맨드에 대한 처리코드 작성필요
+            # Power Off
+            if value == '00':
+                is_power_on = False
+                response = f'OK{value}x' # OK00x
+                ic(f'Changed power state: {is_power_on}')
+            # Power On
+            elif value == '01':
+                is_power_on = True
+                response = f'OK{value}x'
+                ic(f'Changed power state: {is_power_on}')
+            # Get Current Power State
+            elif value == 'ff':
+                # if is_power_on:
+                #     response = 'OK01x'
+                # else:
+                #     response = 'OK00x'
+                response = 'OK01x' if is_power_on is True else 'OK00x'
+                ic(f'Current power state: {is_power_on}')
+            # Wrong Value
+            else:
+                response = f'NG{value}x'
+                ic(f'{value} is wrong value!!!')
+
+            # a 01 OK00x
+            response = f'{command[1]} {setId} {response}\r\n'
+
+        else:
+            msg = 'Not supported command!!!\r\n'
+            ic(msg)
+            ser.writePortUnicode(msg)
+            continue
+
+        # 로그파일 저장
+        jsonData = {'command':command, 'setid':setId, 'value':value, 'respose':response}
+        ic(jsonData)
+
+        jsonString = json.dumps(jsonData) # Dictionary Object -> String Object
+        # jsondData = json.loads(jsonString) # String Object -> Dictionary Object
+        ic(jsonString)
+
+        # [2024-11-19 17:23:34] ...
+        now = datetime.now()
+        ic(now)
+
+        # https://www.geeksforgeeks.org/python-datetime-strptime-function/
+        now = now.strftime('[%Y-%m-%d %H:%M:%S] ')
+
+        # f = open(...)
+        # f. write()
+        # f.close()
+        with open('command.log', 'a', encoding='utf-8') as f:
+            f.write(f'{now}{jsonString}\n')
+
+        ser.writePortUnicode(response)
+
+    ser.closePort()
 
 if __name__ == '__main__':
     main()

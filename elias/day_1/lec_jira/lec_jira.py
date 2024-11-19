@@ -74,14 +74,17 @@ class JiraIssueAutoAssigner:
         # UserID, Passwoer (EP Account)
         auth = ('', '')
         jira = JIRA(options, basic_auth=auth)
+        # sql = 'project in (WEBCOMM16, WEBCOMM17, WEBCOMM18, WEBCOMM19, WEBCOMM20, IDQSIXTHPP, IDQSIXTH, NCCOMM19, ' \
+        #       'CDQLFOURT, CDQAPP, IDQOTW) ' \
+        #       'AND status = Open ' \
+        #       'AND cf[13457] in ("2.DQA SW 인정시험", "ID QE SW 인정시험", "SQE", "Software양산변경", "Software인정시험", "3.DQA SW 양산변경시험") ' \
+        #       'AND assignee in (EMPTY)'
         sql = 'project in (WEBCOMM16, WEBCOMM17, WEBCOMM18, WEBCOMM19, WEBCOMM20, IDQSIXTHPP, IDQSIXTH, NCCOMM19, ' \
               'CDQLFOURT, CDQAPP, IDQOTW) ' \
-              'AND status = Open ' \
-              'AND cf[13457] in ("2.DQA SW 인정시험", "ID QE SW 인정시험", "SQE", "Software양산변경", "Software인정시험", "3.DQA SW 양산변경시험") ' \
-              'AND assignee in (EMPTY)'
+              'AND cf[13457] in ("2.DQA SW 인정시험", "ID QE SW 인정시험", "SQE", "Software양산변경", "Software인정시험", "3.DQA SW 양산변경시험")'
         # field_list = ['cf[13457]']
         # issues = jira.search_issues(sql, maxResults=200, fields=field_list)
-        issues = jira.search_issues(sql, maxResults=200)
+        issues = jira.search_issues(sql, maxResults=1, )
 
         for issue in issues:
             try:
