@@ -4,9 +4,9 @@ import time
 
 ic.configureOutput(includeContext=True)
 
-################################################3
+################################################
 # Open Serial
-################################################3
+################################################
 def openSerial(port, baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
                stopbits=serial.STOPBITS_ONE, timeout=None, xonxoff=False, rtscts=False,
                dsrdtr=False):
@@ -33,11 +33,20 @@ def openSerial(port, baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PAR
 
     return ser
 
+################################################
+# Write Port
+################################################
+def writePort(ser, data):
+    ser.write(data)
+
+
 if __name__ == '__main__':
     # 포트열기
     ser = openSerial(port='com2')
-    time.sleep(100)
 
+    # 포트쓰기
+    data = 'HelloWorld'
+    writePort(ser, data)
 
 
 
