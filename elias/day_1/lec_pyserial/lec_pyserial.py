@@ -43,6 +43,8 @@ def writePortUnicode(ser, data, encode='utf-8'):
     writePort(ser, data.encode(encode))
 
 
+
+
 if __name__ == '__main__':
     # 포트열기
     ser = openSerial(port='com2')
