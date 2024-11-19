@@ -39,15 +39,18 @@ def openSerial(port, baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PAR
 def writePort(ser, data):
     ser.write(data)
 
+def writePortUnicode(ser, data, encode='utf-8'):
+    writePort(ser, data.encode(encode))
+
 
 if __name__ == '__main__':
     # 포트열기
     ser = openSerial(port='com2')
 
     # 포트쓰기
-    data = 'HelloWorld'
-    writePort(ser, data)
-
+    data = 'HelloWorld\r\n'
+    # writePort(ser, data.encode()) # unicode --> bytes array
+    writePortUnicode(ser, data)
 
 
 
