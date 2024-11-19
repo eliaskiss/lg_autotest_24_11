@@ -5,7 +5,7 @@ from icecream import ic
 import time
 
 ic.configureOutput(includeContext=True)
-# ic.disable()
+ic.disable()
 
 class MySerial:
     def __init__(self):
@@ -20,6 +20,7 @@ class MySerial:
 
         # 시리얼 포트 객체 생성
         self.ser = serial.Serial()
+
 
         # 시리얼 포트설정
         self.ser.port = port             # Port Name: com1, com2,...

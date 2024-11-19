@@ -36,6 +36,7 @@ import json
 from datetime import datetime, timedelta
 from icecream import ic
 
+
 RETURN_CODE = b'\x0d'
 
 def main():
