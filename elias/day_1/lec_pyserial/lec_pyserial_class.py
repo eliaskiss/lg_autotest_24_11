@@ -88,7 +88,7 @@ if __name__ == '__main__':
     ser.openSerial(port='com2')
 
     # 포트쓰기
-    data = 'HelloWorld\r\n'
+    data = 'HelloWorld2\r\n'
     # writePort(ser, data.encode()) # unicode --> bytes array
     ser.writePortUnicode(data)
 
