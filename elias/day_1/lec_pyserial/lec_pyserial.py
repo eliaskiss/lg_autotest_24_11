@@ -73,7 +73,14 @@ def readUntilExitCode(ser, code=b'\x03'):
         readed += data
 
         if data == code:
-            return readed
+            break
+    return readed[:-1]
+
+################################################
+# Close Port
+################################################
+def closePort(ser):
+    ser.close()
 
 
 if __name__ == '__main__':
@@ -96,6 +103,8 @@ if __name__ == '__main__':
 
     # Ctrl + C가 들어올때까지 read
     ic(readUntilExitCode(ser))
+
+    closePort(ser)
 
 
 
