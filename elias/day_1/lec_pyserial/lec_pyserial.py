@@ -1,8 +1,11 @@
+from pickletools import read_unicodestringnl
+
 import serial
 from icecream import ic
 import time
 
 ic.configureOutput(includeContext=True)
+# ic.disable()
 
 ################################################
 # Open Serial
@@ -42,7 +45,35 @@ def writePort(ser, data):
 def writePortUnicode(ser, data, encode='utf-8'):
     writePort(ser, data.encode(encode))
 
+################################################
+# Read Port
+################################################
+def read(ser, size=1, timeout=None):
+    ser.timeout = timeout
+    readed = ser.read(size)
+    return readed
 
+################################################
+# Read EOF
+# Putty에서의 EOF값 --> Ctrl + j
+################################################
+def readEOF(ser):
+    readed = ser.readline()
+    return readed[:-1]
+
+################################################
+# Read Until ExitCode
+# Ctrl + C 값이 넘어올때까지 read
+################################################
+def readUntilExitCode(ser, code=b'\x03'):
+    readed = b''
+    while True:
+        data = ser.read()
+        ic(data)
+        readed += data
+
+        if data == code:
+            return readed
 
 
 if __name__ == '__main__':
@@ -54,10 +85,17 @@ if __name__ == '__main__':
     # writePort(ser, data.encode()) # unicode --> bytes array
     writePortUnicode(ser, data)
 
+    # 포트읽기
+    # ic(read(ser))
 
+    # 10 byte 읽기
+    # ic(read(ser, 10))
 
+    # EOF까지 읽기
+    # ic(readEOF(ser))
 
-
+    # Ctrl + C가 들어올때까지 read
+    ic(readUntilExitCode(ser))
 
 
 
