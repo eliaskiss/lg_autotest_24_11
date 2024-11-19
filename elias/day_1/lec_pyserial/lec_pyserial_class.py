@@ -84,7 +84,8 @@ class MySerial:
 
 if __name__ == '__main__':
     # 포트열기
-    ser = MySerial(port='com2')
+    ser = MySerial()
+    ser.openSerial(port='com2')
 
     # 포트쓰기
     data = 'HelloWorld\r\n'
@@ -101,9 +102,9 @@ if __name__ == '__main__':
     # ic(ser.readEOF())
 
     # Ctrl + C가 들어올때까지 read
-    ic(ser.readUntilExitCode())
+    # ic(ser.readUntilExitCode())
 
-    ser.closePort()
+    # ser.closePort()
 
 
 
