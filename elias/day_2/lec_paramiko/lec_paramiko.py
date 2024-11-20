@@ -53,10 +53,11 @@ class MySSH:
     ###############################################################
     # Execute Shell Command
     ###############################################################
-    def exeCommand(self, command, delay=0.1, isReturn=False):
+    def exeCommand(self, command, isReturn=False):
         if self.isAlive():
             stdin, stdout, stderr = self.client.exec_command(command)
-            time.sleep(delay)
+            if stdout.channel.recv_exit_status() != 0:
+                return stderr.read()
 
             if isReturn is True:
                 return stdout.readlines()
@@ -66,12 +67,13 @@ class MySSH:
     ###############################################################
     # Execute Shell Command as root (sudo command)
     ###############################################################
-    def sudoCommand(self, command, delay=0.1, isReturn=False):
+    def sudoCommand(self, command, isReturn=False):
         if self.isAlive():
             stdin, stdout, stderr = self.client.exec_command('sudo ' + command, get_pty=True)
 
             stdin.write(self.password + '\n')
-            time.sleep(delay)
+            if stdout.channel.recv_exit_status() != 0:
+                return stderr.read()
 
             if isReturn is True:
                 return stdout.readlines()
@@ -212,8 +214,8 @@ if __name__ == '__main__':
         ###########################################################
         # ssh.exeCommand('sudo mkdir /lg/elias')
         # ssh.sudoCommand('mkdir /lg/elias')
-        # ssh.sudoCommand('apt install nmap -y', 15)
-        # ssh.sudoCommand('./install.sh', 15)
+        ssh.sudoCommand('apt install nmap -y')
+        # ssh.sudoCommand('./install.sh')
 
         ###########################################################
         # 서버로부터 파일 가져오기
