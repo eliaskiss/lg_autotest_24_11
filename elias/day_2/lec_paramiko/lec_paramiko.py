@@ -69,6 +69,19 @@ if __name__ == '__main__':
     ssh = MySSH()
     if ssh.connect('211.169.249.211', 'elias', '1111', timeout=5, port=22):
         ic('SSH is connected')
+
+        # ###########################################################
+        # # Process List 파일생성 (ps -ef > process_list.txt)
+        # ###########################################################
+        # ssh.exeCommand('ps -ef > process_list.txt')
+
+        ###########################################################
+        # 파일목록 가져오기 (ls -al)
+        ###########################################################
+        file_list = ssh.exeCommand('ls -al', isReturn=True)
+        for file in file_list:
+            print(file, end='')
+
     else:
         ic('Connect fail')
 
