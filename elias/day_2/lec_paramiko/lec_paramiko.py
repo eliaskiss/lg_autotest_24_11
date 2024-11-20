@@ -93,6 +93,16 @@ if __name__ == '__main__':
         # & --> 앞의 명령어는 background로 실행하고 뒤에 명령어를 실행
         # ssh.exeCommand('cd temp && ps -ef > process_list.txt')
 
+        ###########################################################
+        # Shell Script 파일생성 후 실행권한을 주고 실행
+        ###########################################################
+        ssh.exeCommand('echo "ps -ef > process_list.txt" > make_process_list.sh') # 쉘스크립트파일 생성
+        ssh.exeCommand('chmod +x ./make_process_list.sh')   # 실행 옵션추가
+        ssh.exeCommand('./make_process_list.sh') # 쉘스크립트 실행
+
+
+
+
 
     else:
         ic('Connect fail')
