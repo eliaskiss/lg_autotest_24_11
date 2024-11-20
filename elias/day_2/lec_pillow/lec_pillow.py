@@ -229,95 +229,95 @@ if __name__ == '__main__':
     # Pillow 객체생성
     pillow = Pillow()
 
-    # ######################################################
-    # # 이미지 정보 출력
-    # ######################################################
-    # img_info = pillow.get_info(img_file_path)
-    # ic(img_info)
+    ######################################################
+    # 이미지 정보 출력
+    ######################################################
+    img_info = pillow.get_info(img_file_path)
+    ic(img_info)
 
-    # ######################################################
-    # # 이미지 포맷변경
-    # ######################################################
-    # new_image = pillow.convert_format(img_file_path, 'png')
-    # ic(pillow.get_info(new_image))
+    ######################################################
+    # 이미지 포맷변경
+    ######################################################
+    new_image = pillow.convert_format(img_file_path, 'png')
+    ic(pillow.get_info(new_image))
 
-    # ######################################################
-    # # 썸네일 이미지 만들기
-    # ######################################################
-    # new_image = pillow.make_thumbnail(img_file_path)
-    # ic(pillow.get_info(new_image))
+    ######################################################
+    # 썸네일 이미지 만들기
+    ######################################################
+    new_image = pillow.make_thumbnail(img_file_path)
+    ic(pillow.get_info(new_image))
 
-    # ###############################################################
-    # # 이미지 잘라내기(Crop)
-    # ###############################################################
-    # new_image = pillow.crop_image(img_file_path, 100, 100, 200, 200)
-    # ic(new_image)
-    # ic(pillow.get_info(new_image))
+    ###############################################################
+    # 이미지 잘라내기(Crop)
+    ###############################################################
+    new_image = pillow.crop_image(img_file_path, 100, 100, 200, 200)
+    ic(new_image)
+    ic(pillow.get_info(new_image))
 
-    # ###############################################################
-    # # 이미지 크기변경
-    # ###############################################################
-    # new_image = pillow.resize_image(img_file_path, 300, 300)
-    # ic(pillow.get_info(new_image))
+    ###############################################################
+    # 이미지 크기변경
+    ###############################################################
+    new_image = pillow.resize_image(img_file_path, 300, 300)
+    ic(pillow.get_info(new_image))
 
-    # ###############################################################
-    # # 이미지 상대적 크기변경
-    # ###############################################################
-    # new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'contain')
-    # ic(pillow.get_info(new_image))
-    # new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'cover')
-    # ic(pillow.get_info(new_image))
-    # new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'fit')
-    # ic(pillow.get_info(new_image))
-    # new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'pad')
-    # ic(pillow.get_info(new_image))
+    ###############################################################
+    # 이미지 상대적 크기변경
+    ###############################################################
+    new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'contain')
+    ic(pillow.get_info(new_image))
+    new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'cover')
+    ic(pillow.get_info(new_image))
+    new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'fit')
+    ic(pillow.get_info(new_image))
+    new_image = pillow.relative_resize_image(img_file_path, 300, 300, 'pad')
+    ic(pillow.get_info(new_image))
 
-    # ###############################################################
-    # # 이미지 회전
-    # ###############################################################
-    # # new_image = pillow.rotate_image(img_file_path, 90, True)
-    # new_image = pillow.rotate_image(img_file_path, 90, False)
+    ###############################################################
+    # 이미지 회전
+    ###############################################################
+    # new_image = pillow.rotate_image(img_file_path, 90, True)
+    new_image = pillow.rotate_image(img_file_path, 90, False)
 
-    # ##################################################
-    # # 이미지 변형
-    # ##################################################
+    ##################################################
+    # 이미지 변형
+    ##################################################
     # img_info = pillow.transpose_image(img_file_path, Image.Transpose.FLIP_LEFT_RIGHT)
-    # img_info = pillow.transpose_image(img_file_path, Image.Transpose.FLIP_TOP_BOTTOM)
+    img_info = pillow.transpose_image(img_file_path, Image.Transpose.FLIP_TOP_BOTTOM)
     # img_info = pillow.transpose_image(img_file_path, Image.Transpose.ROTATE_90)
     # img_info = pillow.transpose_image(img_file_path, Image.Transpose.ROTATE_180)
     # img_info = pillow.transpose_image(img_file_path, Image.Transpose.ROTATE_270)
 
-    # ###############################################################
-    # # 이미지에 글쓰기
-    # ###############################################################
-    # new_image = pillow.draw_text_on_image(img_file_path, 500, 500, 'Hellow World', 30, 'red')
-    # ic(new_image)
+    ###############################################################
+    # 이미지에 글쓰기
+    ###############################################################
+    new_image = pillow.draw_text_on_image(img_file_path, 500, 500, 'Hellow World', 30, 'red')
+    ic(new_image)
 
-    # ###############################################################
-    # # 필터 적용
-    # ###############################################################
-    # filter_list = [FILTER.BLUR, FILTER.CONTOUR, FILTER.DETAIL,
-    #                FILTER.EDGE_ENHANCE, FILTER.EDGE_ENHANCE_MORE, FILTER.EMBOSS, FILTER.FIND_EDGES,
-    #                FILTER.SHARPEN, FILTER.SMOOTH, FILTER.SMOOTH_MORE]
-    #
-    # for filter in filter_list:
-    #     new_image = pillow.apply_filter(img_file_path, filter)
-    #     ic(new_image)
+    ###############################################################
+    # 필터 적용
+    ###############################################################
+    filter_list = [FILTER.BLUR, FILTER.CONTOUR, FILTER.DETAIL,
+                   FILTER.EDGE_ENHANCE, FILTER.EDGE_ENHANCE_MORE, FILTER.EMBOSS, FILTER.FIND_EDGES,
+                   FILTER.SHARPEN, FILTER.SMOOTH, FILTER.SMOOTH_MORE]
 
-    # ###############################################################
-    # # Merge Image
-    # ###############################################################
-    # row = 2
-    # column = 3
-    #
-    # # 빈 캔버스 이미지 객체 생성
-    # merge_image = pillow.merge_create_image(row, column, img_file_path)
-    #
-    # # 각 행/열의 이미지 복사
-    # for _row in range(row):  # 0, 1
-    #     for _column in range(column):  # 0, 1, 2
-    #         pillow.merge_paste_image(merge_image, _row, _column, img_file_path)
-    #
-    # # Merged된 이미지 파일 저장
-    # new_image = pillow.merge_save(merge_image, img_file_path)
-    # ic(new_image)
+    for filter in filter_list:
+        new_image = pillow.apply_filter(img_file_path, filter)
+        ic(new_image)
+
+    ###############################################################
+    # Merge Image
+    ###############################################################
+    row = 2
+    column = 3
+
+    # 빈 캔버스 이미지 객체 생성
+    merge_image = pillow.merge_create_image(row, column, img_file_path)
+
+    # 각 행/열의 이미지 복사
+    for _row in range(row):  # 0, 1
+        for _column in range(column):  # 0, 1, 2
+            pillow.merge_paste_image(merge_image, _row, _column, img_file_path)
+
+    # Merged된 이미지 파일 저장
+    new_image = pillow.merge_save(merge_image, img_file_path)
+    ic(new_image)
