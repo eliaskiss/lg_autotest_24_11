@@ -67,24 +67,15 @@ class MySSH:
     ###############################################################
     def sudoCommand(self, command, isReturn=False):
         if self.isAlive():
-            stdin, stdout, stderr = self.client.exec_command('sudo ' + command)
+            stdin, stdout, stderr = self.client.exec_command('sudo ' + command, get_pty=True)
 
             stdin.write(self.password + '\n')
+            time.sleep(0.1)
 
             if isReturn is True:
                 return stdout.readlines()
         else:
             ic('Client is not connected')
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     ssh = MySSH()
@@ -124,7 +115,8 @@ if __name__ == '__main__':
         ###########################################################
         # sudo 커맨드 실행
         ###########################################################
-        ssh.exeCommand('sudo mkdir /lg/elias')
+        # ssh.exeCommand('sudo mkdir /lg/elias')
+        ssh.sudoCommand('mkdir /lg/elias')
 
 
     else:
