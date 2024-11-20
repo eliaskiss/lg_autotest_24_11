@@ -43,6 +43,27 @@ class MySSH:
             else:
                 return False
 
+    ###############################################################
+    # Disconnect
+    ###############################################################
+    def disconnect(self):
+        if self.client is not None:
+            self.client.close()
+
+    ###############################################################
+    # Execute Shell Command
+    ###############################################################
+    def exeCommand(self, command, isReturn=False):
+        if self.isAlive():
+            stdin, stdout, stderr = self.client.exec_command(command)
+
+            if isReturn is True:
+                return stdout.readlines()
+        else:
+            ic('Client is not connected!!!')
+
+
+
 
 if __name__ == '__main__':
     ssh = MySSH()
