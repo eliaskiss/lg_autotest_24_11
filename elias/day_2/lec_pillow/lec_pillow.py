@@ -23,6 +23,18 @@ class FILTER(Enum):
     SMOOTH = 8
     SMOOTH_MORE = 9
 
+class Pillow:
+    ##################################################
+    # Get Image File Information
+    ##################################################
+    def get_info(self, img_file_path):
+        img = Image.open(img_file_path)
+        return ({'FileName':img.filename,
+                 'Format':img.format,
+                 'Format Desc':img.format_description,
+                 'Width':img.width,
+                 'Height':img.height,
+                 'Mode':img.mode})
 
 
 
