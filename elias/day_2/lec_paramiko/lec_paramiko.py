@@ -88,6 +88,16 @@ class MySSH:
             self.ftp_client = self.client.open_sftp()
         self.ftp_client.get(srcFilePath, dstFilePath)
 
+    ################################################################
+    # Put File to Host (SFTP)
+    # srcFilePath: Local(PC, Client), dstFilePath: Server(host)
+    ################################################################
+    def putToHost(self, srcFilePath, dstFilePath):
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+        self.ftp_client.put(srcFilePath, dstFilePath)
+
 
 
 
@@ -136,6 +146,10 @@ if __name__ == '__main__':
         # ssh.sudoCommand('apt install nmap -y', 15)
         # ssh.sudoCommand('./install.sh', 15)
 
+        ###########################################################
+        # 서버로부터 파일 가져오기
+        ###########################################################
+        ssh.getFromHost('./process_list.txt', './process_list.txt')
 
     else:
         ic('Connect fail')
