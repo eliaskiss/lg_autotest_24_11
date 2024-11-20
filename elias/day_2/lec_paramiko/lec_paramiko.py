@@ -53,9 +53,10 @@ class MySSH:
     ###############################################################
     # Execute Shell Command
     ###############################################################
-    def exeCommand(self, command, isReturn=False):
+    def exeCommand(self, command, delay=0.1, isReturn=False):
         if self.isAlive():
             stdin, stdout, stderr = self.client.exec_command(command)
+            time.sleep(delay)
 
             if isReturn is True:
                 return stdout.readlines()
@@ -65,12 +66,12 @@ class MySSH:
     ###############################################################
     # Execute Shell Command as root (sudo command)
     ###############################################################
-    def sudoCommand(self, command, isReturn=False):
+    def sudoCommand(self, command, delay=0.1, isReturn=False):
         if self.isAlive():
             stdin, stdout, stderr = self.client.exec_command('sudo ' + command, get_pty=True)
 
             stdin.write(self.password + '\n')
-            time.sleep(0.1)
+            time.sleep(delay)
 
             if isReturn is True:
                 return stdout.readlines()
@@ -116,7 +117,9 @@ if __name__ == '__main__':
         # sudo 커맨드 실행
         ###########################################################
         # ssh.exeCommand('sudo mkdir /lg/elias')
-        ssh.sudoCommand('mkdir /lg/elias')
+        # ssh.sudoCommand('mkdir /lg/elias')
+        # ssh.sudoCommand('apt install nmap -y', 15)
+        # ssh.sudoCommand('./install.sh', 15)
 
 
     else:
