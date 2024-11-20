@@ -75,12 +75,24 @@ if __name__ == '__main__':
         # ###########################################################
         # ssh.exeCommand('ps -ef > process_list.txt')
 
+        # ###########################################################
+        # # 파일목록 가져오기 (ls -al)
+        # ###########################################################
+        # file_list = ssh.exeCommand('ls -al', isReturn=True)
+        # for file in file_list:
+        #     print(file, end='')
+
         ###########################################################
-        # 파일목록 가져오기 (ls -al)
+        # temp 폴더로 이동 후 process_list.txt 파일 생성
         ###########################################################
-        file_list = ssh.exeCommand('ls -al', isReturn=True)
-        for file in file_list:
-            print(file, end='')
+        # ssh.exeCommand('cd temp') # temp 폴더로 이동
+        # ssh.exeCommand('ps -ef > process_list.txt') # proces_list.txt 파일 생성
+    
+        # ; --> 앞의 명령어가 실패해도, 뒤에 명령어를 실행
+        # && --> 앞의 명령어가 성공했을대만 뒤에 명령어를 실행
+        # & --> 앞의 명령어는 background로 실행하고 뒤에 명령어를 실행
+        # ssh.exeCommand('cd temp && ps -ef > process_list.txt')
+
 
     else:
         ic('Connect fail')
