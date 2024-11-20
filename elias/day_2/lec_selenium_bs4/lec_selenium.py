@@ -87,7 +87,7 @@ for _ in range(total_page):
             wget.download(img_url, f'./images/{code}.jpg')
 
             # 큰 포스터 이미지 다운로드
-            original_url = img_url.replace('304x456' , '600x800')
+            original_url = img_url.replace('304x456' , '800x1200')
             wget.download(original_url, f'./images/{code}_origin.jpg')
 
             # 영화제목
