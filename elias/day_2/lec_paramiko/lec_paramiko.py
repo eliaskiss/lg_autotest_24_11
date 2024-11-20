@@ -251,7 +251,7 @@ if __name__ == '__main__':
         ###########################################################
         # ssh.exeCommand('sudo mkdir /lg/elias')
         # ssh.sudoCommand('mkdir /lg/elias')
-        ssh.sudoCommand('apt install nmap -y')
+        # ssh.sudoCommand('apt install nmap -y')
         # ssh.sudoCommand('./install.sh')
 
         ###########################################################
@@ -315,6 +315,7 @@ if __name__ == '__main__':
         # # Put folder to host with scp
         # ###############################################################
         # ssh.putFolderToHostSCP('temp', 'temp2')
+
     else:
         ic('Connect fail')
 
