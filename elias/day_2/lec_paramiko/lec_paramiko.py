@@ -133,10 +133,10 @@ class MySSH:
             self.ftp_client = self.client.open_sftp()
         return self.ftp_client.listdir(filePath)
 
-    ######################################################################
+    #######################################################################
     # Get file list of host
     # srcFilePath: Server(host)
-    ###############################################################
+    ##############################################################
     def getFileAttrListFromHost(self, srcFilePath):
         if self.ftp_client is None:
             # Get SFTP object from SSHClient
@@ -173,6 +173,16 @@ class MySSH:
                 self.deleteHostFile(path)
 
         self.ftp_client.rmdir(srcFilePath)  # rm -rf target_folder
+
+    ################################################################
+    # Get File From Host with SCP
+    # srcFilePath: Server(host), dstFilePath: Local(PC, Client)
+    ################################################################
+    def getFromHostWithSCP(self, srcFilePath, dstFilePath):
+        if self.scp_client is None:
+            self.scp_cleint = SCPClient(self.client.get_transport())
+        self.scp_cleint.get(srcFilePath, dstFilePath)
+
 
 if __name__ == '__main__':
     ssh = MySSH()
