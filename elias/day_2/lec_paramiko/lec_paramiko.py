@@ -78,6 +78,21 @@ class MySSH:
         else:
             ic('Client is not connected')
 
+    ################################################################
+    # Get File From Host (SFTP)
+    # srcFilePath: Server(host), dstFilePath: Local(PC, Client)
+    ################################################################
+    def getFromHost(self, srcFilePath, dstFilePath):
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+        self.ftp_client.get(srcFilePath, dstFilePath)
+
+
+
+
+
+
 if __name__ == '__main__':
     ssh = MySSH()
     if ssh.connect('211.169.249.211', 'elias', '1111', timeout=5, port=22):
