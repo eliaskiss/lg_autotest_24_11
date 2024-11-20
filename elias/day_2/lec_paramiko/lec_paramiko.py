@@ -183,6 +183,33 @@ class MySSH:
             self.scp_cleint = SCPClient(self.client.get_transport())
         self.scp_cleint.get(srcFilePath, dstFilePath)
 
+    ###############################################################
+    # Put file to host with SCP
+    # srcFilePath: Local(PC, client) dstFilePath: Server(host)
+    ###############################################################
+    def putToHostWithSCP(self, srcFilePath, dstFilePath):
+        if self.scp_client == None:
+            self.scp_client = SCPClient(self.client.get_transport())
+        self.scp_client.put(srcFilePath, dstFilePath)
+
+    ###############################################################
+    # Get folder to host with SCP
+    # srcFilePath: Local(PC, client) dstFilePath: Server(host)
+    ###############################################################
+    def getFolderFromHostSCP(self, srcDirPath, dstDirPath):
+        if self.scp_client == None:
+            self.scp_client = SCPClient(self.client.get_transport())
+        self.scp_client.get(srcDirPath, dstDirPath, recursive=True)
+
+    ###############################################################
+    # Put folder to host with SCP
+    # srcFilePath: Local(PC, client) dstFilePath: Server(host)
+    ###############################################################
+    def putFolderToHostSCP(self, srcDirPath, dstDirPath):
+        if self.scp_client == None:
+            self.scp_client = SCPClient(self.client.get_transport())
+        self.scp_client.put(srcDirPath, dstDirPath, recursive=True)
+
 
 if __name__ == '__main__':
     ssh = MySSH()
@@ -269,7 +296,25 @@ if __name__ == '__main__':
         # ###############################################################
         # ssh.deleteHostFolder('./temp')
 
+        ###########################################################
+        # 서버로부터 파일 가져오기 with SCP
+        ###########################################################
+        # ssh.getFromHostWithSCP('./log.txt', './log.txt')
 
+        # ######################################################################
+        # # Put file to host with scp
+        # ###############################################################
+        # ssh.putToHostWithSCP('./process_list.txt', 'process_list_3.txt')
+
+        # ######################################################################
+        # # Get folder from host with scp
+        # ###############################################################
+        # ssh.getFolderFromHostSCP('temp', 'temp')
+
+        # ######################################################################
+        # # Put folder to host with scp
+        # ###############################################################
+        # ssh.putFolderToHostSCP('temp', 'temp2')
     else:
         ic('Connect fail')
 
