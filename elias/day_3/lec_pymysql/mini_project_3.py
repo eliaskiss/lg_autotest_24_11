@@ -10,7 +10,8 @@ from icecream import ic
 from lec_pymysql import Database
 
 # Talbe Name : 자신의계정_bicycle
-table_name = f'elias_bicycle'
+account = ""
+table_name = f'{account}_bicycle'
 
 DB_URL = '211.169.249.211'
 DB_USER = 'dbuser'
@@ -65,7 +66,7 @@ def put_data_to_db(excel_file_name):
 # ex) 2020년 이후에 서초구에 설치된 자전거 대여소 목록데이터
 # sql = 'select * from elias_bicycle where date(install_date) >= "2020-01-01" and region = "서초구";'
 
-# sql = 'select * from elias_bicycle where date(install_date) >= %s and region = %s;'
+# sql = f'select * from {table_name} where date(install_date) >= %s and region = %s;'
 # from_date : "2020-01-01"
 # region : "서초구"
 # values = (from_date, region)
@@ -112,4 +113,4 @@ def get_data_from_db(from_date, region, output_file_name):
 
 if __name__ == '__main__':
     # put_data_to_db('public_bicycle.xlsx')
-    get_data_from_db('2020-01-01', '서초구', 'new_excel.xlsx')
+    # get_data_from_db('2020-01-01', '서초구', 'new_excel.xlsx')
