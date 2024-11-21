@@ -12,7 +12,7 @@ file_name = 'public_bicycle.xlsx'
 # Open Excel File
 ###############################################################
 wb = load_workbook(file_name,
-                   read_only=False, # read_only=True --> Lazy Loading 발생해서 대용량 엑셀파일 처리에 용이함
+                   read_only=True, # read_only=True --> Lazy Loading 발생해서 대용량 엑셀파일 처리에 용이함
                    data_only=True) # True : Cell 함수의 결과값 (3), False: Cell 함수식(=A1+A2)
 
 ###############################################################
