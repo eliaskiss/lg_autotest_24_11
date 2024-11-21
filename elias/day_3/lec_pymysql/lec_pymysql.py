@@ -171,9 +171,21 @@ if __name__ == '__main__':
     #     db.execute_only(sql, values)
     # db.commit_only()
 
+    ################################################################
+    # Get Data List from Table
+    ################################################################
+    # sql = f'select * from {table_name};'
+    # data_list = db.execute_and_return(sql)
+    # for data in data_list:
+    #     ic(data)
 
-
-
+    ################################################################
+    # Get One Data from Table
+    ################################################################
+    sql = f'select count(*) as cnt from {table_name};'
+    data = db.execute_and_return_one(sql)
+    ic(data)
+    ic(data['cnt'])
 
 
     ################################################################
