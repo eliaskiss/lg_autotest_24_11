@@ -90,6 +90,65 @@ ws = wb.active # 현재 활성화 되어 있는 (저장하는순간의 워크시
 # ic(type(cell_with_text.value))
 # ic(cell_with_text.value)
 
+###############################################################
+# Get Cell Color
+###############################################################
+# fill_a6 = ws['A6'].fill
+# ic(fill_a6.fgColor.index)
+# ic(fill_a6.fgColor.type)
+# if fill_a6.fgColor.type == 'rgb':
+#     argb = fill_a6.fgColor.rgb
+#     ic(argb)
+#     argb = tuple(int(argb[i:i+2], 16) for i in range(0, len(argb), 2))
+#     ic(argb)
+# ic('----------------------------------------------------------')
+# fill_b6 = ws['B6'].fill
+# ic(fill_b6.fgColor.index)
+# ic(fill_b6.fgColor.type)
+# if fill_b6.fgColor.type == 'rgb':
+#     argb = fill_b6.fgColor.rgb
+#     ic(argb)
+#     argb = tuple(int(argb[i:i+2], 16) for i in range(0, len(argb), 2))
+#     ic(argb)
+# ic('----------------------------------------------------------')
+
+###############################################################
+# Get Row Data
+###############################################################
+# for row in ws.rows:
+#     row_values = [elem.value for elem in row]
+#     ic(row_values)
+
+# for index, row in enumerate(ws.rows):
+#     if index >= 5 :
+#         row_values = [elem.value for elem in row]
+#         ic(row_values)
+#         break
+
+# for row in ws.iter_rows(min_row=6, max_row=2591):
+#     row_values = [elem.value for elem in row]
+#     ic(row_values)
+#     break
+
+###############################################################
+# Get Data with slicing
+###############################################################
+# for row in ws['A6':'J20']:
+#     row_values = [elem.value for elem in row]
+#     ic(row_values)
+
+###############################################################
+# Get Hidden Row
+###############################################################
+# ic(ws.row_dimensions[6].hidden)
+# ic(ws.row_dimensions[7].hidden)
+
+###############################################################
+# Get Hidden Column
+###############################################################
+# ic(ws.column_dimensions['F'].hidden)
+# ic(ws.column_dimensions['G'].hidden)
+
 
 
 
