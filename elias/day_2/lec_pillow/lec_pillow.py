@@ -223,6 +223,27 @@ class Pillow:
         return path
 
 
+    ##################################################
+    # Convert Image Format
+    ##################################################
+    def convert_format(self, img_file_path, format):
+        img = Image.open(img_file_path)
+
+        # 이미지 모드가 RGB가 아닌경우에는 포맷변경 불가
+        # RGB모드로 변경해야함
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+            
+        
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     img_file_path = './image/buz.jpg'
 

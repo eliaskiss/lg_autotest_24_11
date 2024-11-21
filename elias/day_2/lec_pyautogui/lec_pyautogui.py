@@ -181,7 +181,7 @@ if __name__ == '__main__':
     # # Get Current Mouse Position
     # ic(ag.getMousePosition())
 
-    # # # Check Position Validation
+    # # Check Position Validation
     # ic(ag.isValidPosition(100, 100))
     # ic(ag.isValidPosition(2000, 2000))
     # ic(ag.isValidPosition(-1, -1))
@@ -196,9 +196,9 @@ if __name__ == '__main__':
     # ic('New Pause Time:', ag.getPauseTime())
     # ag.setPauseTime(default)
 
-    # # Set Fail-Safe Mode : 범위벗어났을때 예외발생여부
-    # ic('Default Fail-Safe Mode:', ag.getFailSafeMode())
-    # ag.mouseMove(2000, 2000)
+    # Set Fail-Safe Mode : 범위벗어났을때 예외발생여부
+    ic('Default Fail-Safe Mode:', ag.getFailSafeMode())
+    ag.mouseMove(2000, 2000)
     # ag.setFailSafeMode(False)
     # ic('New Fail-Safe Mode:', ag.getFailSafeMode())
     # ag.mouseMove(2000, 2000)
@@ -212,7 +212,7 @@ if __name__ == '__main__':
 
     # # Mouse Drag
     # ic(ag.getMousePosition())
-    # ag.mouseMove(380, 310)  # (380, 310)으로 이동
+    # ag.mouseMove(488, 104)  # (380, 310)으로 이동
     # ag.mouseDrag(500, 500, 3)   # (380, 310) -> (500, 500) 까지 3초동안 드래그
     # ag.mouseDrag(500, 500, 3, True) # (380, 310) -> (880, 810) 까지 3초 동안 드래그 [(500, 500) 만큼 드래그]
 
@@ -232,7 +232,7 @@ if __name__ == '__main__':
     # position = ag.getMousePosition()
     # ag.mouseRClick(position.x, position.y)
 
-    # # Scroll Mouse
+    # Scroll Mouse
     # ag.mouseScrollUp(1000)
     # time.sleep(3)
     # ag.mouseScrollDown(1000)
@@ -240,18 +240,18 @@ if __name__ == '__main__':
     # time.sleep(3)
     # ag.mouseScrollRight(1000)     # Windows에서는 ScrollUp으로 동작
 
-    # # KB Write
+    # KB Write
     # ag.kbWrite('Hello')
     # ag.kbWrite('Hello', 1, True) # 스크린샷 저장 후 1초간격으로 Hello를 한글자씩 입력
 
-    # # KB PressKey
+    # KB PressKey
     # ag.kbPressKey('win')      # Window 키
     # ag.kbPressKey('num0', 5, 1) # 1초 간격으로 0번키를 5번 입력
 
-    # # KB Hotkey
+    # KB Hotkey
     # ag.kbHotKey('ctrl', 'shift', 'esc') # 작업관리자 실행
 
-    # # KB KeyDown/KeyUp
+    # KB KeyDown/KeyUp
     # ag.kbKeyDown('ctrl')
     # ag.kbKeyDown('shift')
     # ag.kbKeyDown('esc')
@@ -259,10 +259,10 @@ if __name__ == '__main__':
     # ag.kbKeyUp('shift')
     # ag.kbKeyUp('ctrl')
 
-    # # ScreenShot
+    # ScreenShot
     # now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     # # ic(now)
-    # # obj = datetime.strptime('2023-08-24_08-24-14', '%Y-%m-%d_%H-%M-%S')
+    # # obj = datetime.strptime('[2023-08-24_08-24-14] ', '[%Y-%m-%d_%H-%M-%S] ')
     # # ic(obj)
     # yesterday = datetime.now() + timedelta(days=-1)
     # # yesterday = datetime.now() - timedelta(days=1)
