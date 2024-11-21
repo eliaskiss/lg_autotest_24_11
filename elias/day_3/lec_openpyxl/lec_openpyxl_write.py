@@ -3,6 +3,7 @@ from openpyxl.comments import Comment
 from openpyxl.drawing.image import Image
 from datetime import datetime, timedelta
 
+from openpyxl.styles.alignment import horizontal_alignments, vertical_aligments
 from pyautogui import leftClick, doubleClick
 
 ###############################################################
@@ -346,6 +347,29 @@ ws['B4'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
 double = Side(border_style='double', color='000000')
 ws['B6'] = 'Double'
 ws['B6'].border = Border(top=double, left=double, right=double, bottom=double)
+
+#####################################################################
+# Set Cell Fill
+#####################################################################
+ws['A7'] = 'Solid'
+ws['A7'].fill = PatternFill('solid', fgColor='DDDDDD')
+
+ws['A8'] = 'Gradient'
+ws['A8'].fill = GradientFill(stop=('000000', 'FFFFFF'))
+
+#####################################################################
+# Set Cell Alignment
+#####################################################################
+# horizontal_alignments = ("general", "left", "right", "justify", "centerContinous", "distributed")
+# vertical_aligments = ("top", "center", "bottom", "justify", "distributed")
+
+ws['A9'] = 'Center'
+ws['A9'].alignment = Alignment(horizontal='center', vertical='center')
+
+#####################################################################
+# Set Cell Width
+#####################################################################
+ws.column_dimensions['A'].width = 70
 
 ###############################################################
 # Save Excel File
