@@ -76,7 +76,7 @@ class Database:
     ################################################################
     # Commit Only
     ################################################################
-    def commit_only(self, sql, values=None):
+    def commit_only(self):
         try:
             if self.conn is not None:
                 self.conn.commit()
@@ -141,17 +141,45 @@ if __name__ == '__main__':
     ################################################################
     # Create Table
     ################################################################
-    sql = f'create table if not exists {table_name} (' \
-          f'id int(11) not null auto_increment, ' \
-          f'reg_datetime datetime default current_timestamp(), ' \
-          f'name varchar(32) default null, ' \
-          f'age int(11) default 0, ' \
-          f'key id (id)) ' \
-          f'engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;'
-    db.execute_and_commit(sql)
+    # sql = f'create table if not exists {table_name} (' \
+    #       f'id int(11) not null auto_increment, ' \
+    #       f'reg_datetime datetime default current_timestamp(), ' \
+    #       f'name varchar(32) default null, ' \
+    #       f'age int(11) default 0, ' \
+    #       f'key id (id)) ' \
+    #       f'engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;'
+    # db.execute_and_commit(sql)
+
+    ################################################################
+    # Insert Data
+    ################################################################
+    name = "Elias Kim"
+    age = 20
+    # Way I
+    # sql = f'insert into {table_name} (name, age) values ("{name}", {age});'
+    # db.execute_and_commit(sql)
+
+    # Way II
+    # sql = f'insert into {table_name} (name, age) values (%s, %s);'
+    # values = (name, age)
+    # db.execute_and_commit(sql, values)
+
+    # for i in range(100):
+    #     sql = f'insert into {table_name} (name, age) values(%s, %s);'
+    #     values = (f'{table_name}_{i+1}', (20 + i)) # elias_1, 20, elias_2, 21, ...
+    #     # db.execute_and_commit(sql, values)
+    #     db.execute_only(sql, values)
+    # db.commit_only()
 
 
 
+
+
+
+    ################################################################
+    # Disconnect DB
+    ################################################################
+    db.disconnect_db()
 
 
 
