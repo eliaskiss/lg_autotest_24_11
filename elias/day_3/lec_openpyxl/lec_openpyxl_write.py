@@ -131,6 +131,161 @@ wb.active = 2
 ws = wb['Chart']
 
 
+from openpyxl.chart import (AreaChart, AreaChart3D, Reference, BubbleChart, BarChart, Series)
+from copy import deepcopy
+
+ws['A1'] = 'Bar Chart'
+
+rows = [('Number', 'Batch 1', 'Batch 2'),
+        (2, 10, 30),
+        (3, 40, 60),
+        (4, 50, 70),
+        (5, 20, 10),
+        (6, 10, 40),
+        (7, 50, 30)]
+
+for row in rows:
+    ws.append(row)
+
+###############################################################
+# Bar Chart
+###############################################################
+chart1 = BarChart()
+chart1.type = "col"
+chart1.style = 10
+chart1.title = "Bar Chart"
+chart1.y_axis.title = "Test Number"
+chart1.x_axis.title = "Sample length(mm)"
+
+data = Reference(ws, min_col=2, min_row=2, max_row=8, max_col=3)
+cats = Reference(ws, min_col=1, min_row=3, max_row=8)
+chart1.add_data(data, titles_from_data=True)
+chart1.set_categories(cats)
+chart1.shape = 4
+ws.add_chart(chart1, 'E1')
+
+############################################################################
+# Horizontal Bar Chart
+############################################################################
+chart2 = deepcopy(chart1)
+chart2.style = 11
+chart2.type = "bar"
+chart2.title = "Horizontal Bar Chart"
+
+ws.add_chart(chart2, "N1")
+
+############################################################################
+# Stack Bar Chart
+############################################################################
+chart3 = deepcopy(chart1)
+chart3.type = "col"
+chart3.style = 12
+chart3.grouping = "stacked"
+chart3.overlap = 100
+chart3.title = 'Stacked Chart'
+
+ws.add_chart(chart3, "E15")
+
+############################################################################
+# Horizontal Stack Bar Chart
+############################################################################
+chart4 = deepcopy(chart1)
+chart4.type = "bar"
+chart4.style = 13
+chart4.grouping = "percentStacked"
+chart4.overlap = 100
+chart4.title = 'Percent Stacked Chart'
+
+ws.add_chart(chart4, "N15")
+
+############################################################################
+# Area Chart
+############################################################################
+ws['A29'] = 'Area Chart'
+rows = [
+    ['Number', 'Batch 1', 'Batch 2'],
+    [2, 40, 30],
+    [3, 40, 50],
+    [4, 50, 30],
+    [5, 30, 10],
+    [6, 25, 30],
+    [7, 50, 10],
+]
+
+for row in rows:
+    ws.append(row)
+
+chart = AreaChart()
+chart.title = "Area Chart"
+chart.style = 13
+chart.x_axis.title = 'Test'
+chart.y_axis.title = 'Percentage'
+
+data = Reference(ws, min_col=2, min_row=30, max_col=3, max_row=36)
+cats = Reference(ws, min_col=1, min_row=31, max_row=36)
+chart.add_data(data, titles_from_data=True)
+chart.set_categories(cats)
+
+ws.add_chart(chart, "E29")
+
+############################################################################
+# Area 3D Chart
+############################################################################
+chart = AreaChart3D()
+chart.title = "Area Chart"
+chart.style = 13
+chart.x_axis.title = 'Test'
+chart.y_axis.title = 'Percentage'
+chart.legend = None
+
+data = Reference(ws, min_col=2, min_row=30, max_col=3, max_row=36)
+cats = Reference(ws, min_col=1, min_row=31, max_row=36)
+chart.add_data(data, titles_from_data=True)
+chart.set_categories(cats)
+
+ws.add_chart(chart, "N29")
+
+############################################################################
+# Bubble Chart
+############################################################################
+ws['A43'] = 'Bubble Chart'
+rows = [
+    ("Number of Products", "Sales in USD", "Market share"),
+    (14, 12200, 15),
+    (20, 60000, 33),
+    (18, 24400, 10),
+    (22, 32000, 42),
+    (),
+    (12, 8200, 18),
+    (15, 50000, 30),
+    (19, 22400, 15),
+    (25, 25000, 50),
+]
+
+for row in rows:
+    ws.append(row)
+
+chart = BubbleChart()
+chart.style = 18 # use a preset style
+
+# add the first series of data
+xvalues = Reference(ws, min_col=1, min_row=44, max_row=48)
+yvalues = Reference(ws, min_col=2, min_row=44, max_row=48)
+size = Reference(ws, min_col=3, min_row=44, max_row=48)
+series = Series(values=yvalues, xvalues=xvalues, zvalues=size, title="2013")
+chart.series.append(series)
+
+# add the second
+xvalues = Reference(ws, min_col=1, min_row=50, max_row=53)
+yvalues = Reference(ws, min_col=2, min_row=50, max_row=53)
+size = Reference(ws, min_col=3, min_row=50, max_row=53)
+series = Series(values=yvalues, xvalues=xvalues, zvalues=size, title="2014")
+chart.series.append(series)
+
+# place the chart starting in cell E1
+ws.add_chart(chart, "E43")
+
+
 
 
 
