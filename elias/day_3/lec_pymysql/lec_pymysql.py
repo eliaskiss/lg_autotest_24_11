@@ -148,7 +148,7 @@ if __name__ == '__main__':
           f'age int(11) default 0, ' \
           f'key id (id)) ' \
           f'engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;'
-
+    db.execute_and_commit(sql)
 
 
 
