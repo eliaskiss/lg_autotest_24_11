@@ -197,8 +197,8 @@ if __name__ == '__main__':
     # ag.setPauseTime(default)
 
     # Set Fail-Safe Mode : 범위벗어났을때 예외발생여부
-    ic('Default Fail-Safe Mode:', ag.getFailSafeMode())
-    ag.mouseMove(2000, 2000)
+    # ic('Default Fail-Safe Mode:', ag.getFailSafeMode())
+    # ag.mouseMove(2000, 2000)
     # ag.setFailSafeMode(False)
     # ic('New Fail-Safe Mode:', ag.getFailSafeMode())
     # ag.mouseMove(2000, 2000)
@@ -270,7 +270,7 @@ if __name__ == '__main__':
     # yesterday = yesterday.strftime('%Y_%m_%d_%H_%M_%S')
     # ag.screenshot(f'{yesterday}.png')
 
-    # # Get Position of Image
+    # Get Position of Image
     # center_position = ag.getPositionOfImage('7.png', is_center=True)
     # ic(center_position)
     # ag.mouseClick(center_position)
