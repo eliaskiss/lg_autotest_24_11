@@ -136,6 +136,19 @@ if __name__ == '__main__':
     db = Database(host='211.169.249.211', user='dbuser', passwd='dbuser', db='lg_autotest')
     db.connect_db()
 
+    table_name = 'elias'
+
+    ################################################################
+    # Create Table
+    ################################################################
+    sql = f'create table if not exists {table_name} (' \
+          f'id int(11) not null auto_increment, ' \
+          f'reg_datetime datetime default current_timestamp(), ' \
+          f'name varchar(32) default null, ' \
+          f'age int(11) default 0, ' \
+          f'key id (id)) ' \
+          f'engine=innodb default charset=utf8mb4 collate=utf8mb4_general_ci;'
+
 
 
 
