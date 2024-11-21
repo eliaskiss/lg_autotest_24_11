@@ -143,7 +143,7 @@ class AutoGui:
         img = pyautogui.screenshot(file_name)
         return img
 
-    # Get Image location in screen
+    # Get Image location in screen (이미지 찾지못하면 예외발생)
     def getPositionOfImage(self, image_path, is_center=False, is_fast_mode=False):
         position = pyautogui.locateOnScreen(image_path, grayscale=is_fast_mode)
         print(position)
