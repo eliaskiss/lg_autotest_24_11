@@ -3,6 +3,8 @@ from openpyxl.comments import Comment
 from openpyxl.drawing.image import Image
 from datetime import datetime, timedelta
 
+from pyautogui import leftClick, doubleClick
+
 ###############################################################
 # Create new Excel Workbook
 ###############################################################
@@ -129,7 +131,6 @@ for i in range(20):
 wb.create_sheet('Chart')
 wb.active = 2
 ws = wb['Chart']
-
 
 from openpyxl.chart import (AreaChart, AreaChart3D, Reference, BubbleChart, BarChart, Series)
 from copy import deepcopy
@@ -285,13 +286,66 @@ chart.series.append(series)
 # place the chart starting in cell E1
 ws.add_chart(chart, "E43")
 
+from openpyxl.styles import Font, Color, PatternFill, GradientFill, Alignment, Side, Border
+from openpyxl import styles
 
+###############################################################
+# Create Style Sheet
+###############################################################
+wb.create_sheet('Style')
+wb.active = 3
+ws = wb['Style']
 
+###############################################################
+# Set Color
+###############################################################
+red_font = Font(color='FF0000')
+ws['A1'] = 'Red'
+ws['A1'].font = red_font
 
+###############################################################
+# Set Font Combination
+###############################################################
+combi_font = Font(color='395B64', size=20, bold=True, italic=True,
+                  underline='singleAccounting', # underlilne: single, double, singleAccounting, doubleAccounting
+                  strike=True)
+ws['A2'] = 'Combination'
+ws['A2'].font = combi_font
 
+###############################################################
+# Set Font Name
+###############################################################
+arial_font = Font(name='arial', size=14)
+ws['A3'] = 'Arial'
+ws['A3'].font = arial_font
 
+#####################################################################
+# Set Border Line
+#####################################################################
+# Cell Border
+# BORDER_NONE = None
+# BORDER_DASHDOT = 'dashDot'
+# BORDER_DASHDOTDOT = 'dashDotDot'
+# BORDER_DASHED = 'dashed'
+# BORDER_DOTTED = 'dotted'
+# BORDER_DOUBLE = 'double'
+# BORDER_HAIR = 'hair'
+# BORDER_MEDIUM = 'medium'
+# BORDER_MEDIUMDASHDOT = 'mediumDashDot'
+# BORDER_MEDIUMDASHDOTDOT = 'mediumDashDotDot'
+# BORDER_MEDIUMDASHED = 'mediumDashed'
+# BORDER_SLANTDASHDOT = 'slantDashDot'
+# BORDER_THICK = 'thick'
+# BORDER_THIN = 'thin'
+# openpyxl.styles.borders.BORDER_DOUBLE
 
+thin = Side(border_style='thin', color='000000')
+ws['B4'] = 'Thin'
+ws['B4'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
 
+double = Side(border_style='double', color='000000')
+ws['B6'] = 'Double'
+ws['B6'].border = Border(top=double, left=double, right=double, bottom=double)
 
 ###############################################################
 # Save Excel File
