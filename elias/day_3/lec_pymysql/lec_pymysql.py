@@ -182,11 +182,28 @@ if __name__ == '__main__':
     ################################################################
     # Get One Data from Table
     ################################################################
-    sql = f'select count(*) as cnt from {table_name};'
-    data = db.execute_and_return_one(sql)
-    ic(data)
-    ic(data['cnt'])
+    # sql = f'select count(*) as cnt from {table_name};'
+    # data = db.execute_and_return_one(sql)
+    # ic(data)
+    # ic(data['cnt'])
 
+    ################################################################
+    # Update Data
+    ################################################################
+    # id = 2
+    # new_name = 'Hong Gil Dong'
+    # new_age = 30
+    #
+    # sql = f'update {table_name} set name = %s, age=%s, reg_datetime=current_timestamp() where id = %s;'
+    # values = (new_name, new_age, id)
+    # db.execute_and_commit(sql, values)
+
+    ################################################################
+    # Delete Data
+    ################################################################
+    # id = 2
+    # sql = f'delete from {table_name} where id = {id};'
+    # db.execute_and_commit(sql)
 
     ################################################################
     # Disconnect DB
