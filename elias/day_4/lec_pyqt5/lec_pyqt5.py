@@ -272,8 +272,7 @@ class MainDialog(QDialog):
     def get_item(self):
         row = int(self.main_ui.le_row.text())
         column = int(self.main_ui.le_column.text())
-        self.add_log(
-            f'TableWidget Item[{row},{column}]: {self.main_ui.tableWidget.item(row, column).text()}'
+        self.add_log(f'TableWidget Item[{row},{column}]: {self.main_ui.tableWidget.item(row, column).text()}')
 
     ###########################################################################################
     # ListWidget
