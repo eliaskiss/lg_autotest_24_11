@@ -46,6 +46,34 @@ class MainDialog(QDialog):
         self.main_ui.setupUi(self)
         self.setWindowTitle('QT Sample Dialog')
 
+        # Line Edit
+        self.main_ui.btn_get_le.clicked.connect(self.get_le)
+        self.main_ui.btn_set_le.clicked.connect(self.set_le)
+
+    def get_le(self):
+        value = self.main_ui.lineEdit.text()
+
+
+    def set_le(self):
+        pass
+
+    def add_log(self, message):
+        now = datetime.now()
+        now = now.strftime('%H:%M:%S')
+
+        # 호출된 함수와 라인번호 가져오기
+        curframe = inspect.currentframe()
+        callframe = inspect.getouterframes(curframe, 2)
+        func_name = callframe[1].function
+        line_no = callframe[1].lineno
+
+        log_message = f'[{now}]: {message} <{func_name}:{line_no}>'
+        file_message = f'{message} <{func_name}:{line_no}>'
+        self.main_ui.tb_log.append(log_message)
+        logger.info(file_message)
+
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     myWindow = MainDialog()
