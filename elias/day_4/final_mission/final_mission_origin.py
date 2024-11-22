@@ -176,6 +176,7 @@ class MainDialog(QDialog):
     def get_data_from_db(self, from_date, region, output_file_name):
         # todo : from_date 이후에 region에서 설치된 자전거 데이터를 output_file_name에 엑셀로 저장
         # ...
+        pass
 
     def clear_log(self):
         self.main_ui.tb_log_power.clear()
@@ -183,10 +184,12 @@ class MainDialog(QDialog):
     def set_power(self):
         # todo : rb_on 컨트롤의 상태를 체크하여 Power On(b'ka 01 01') or Power Off(b'ka 01 00') 명령어를 전송하고
         #        응답값을 받아 로그에 추가(add_log)
+        pass
 
     def get_power(self):
         # todo : 전원상태를 가져오는 명령어(b'ka 01 ff')를 전송하여, 전원상태에 맞게 rb_on, rb_off 라디오 버튼 선택
         # ...
+        pass
 
     @pyqtSlot()
     def thread_is_stopped(self):
@@ -223,6 +226,7 @@ class UploadThread(QThread):
         # todo: 엑셀파일(self.excel_file_name)을 읽어서, DB에 업데이트
         #       self.progressInitSignal.emit()을 이용해서 progress max값 설정
         #       self.progressUpdateSignal.emit()을 이용해서 진행상황겂 업데이트
+        pass
 
     def run(self):
         self.put_data_to_db()
