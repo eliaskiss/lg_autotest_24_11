@@ -13,7 +13,7 @@ DISPLAY_LOG_IN_TERMINAL = True
 
 logger = logging.getLogger('MyLogger')
 logger.setLevel(logging.INFO)
-#
+
 formatter = logging.Formatter('%(asctime)s (%(funcName)20s:%(lineno)4d) [%(levelname)s]: %(message)s')
 
 # Print log in terminal
@@ -33,6 +33,25 @@ if os.path.isfile(filename):
 file_handler = logging.FileHandler(filename)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
+
+class MainDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, False)
+        self.setWindowFlag(Qt.WindowCloseButtonHint, True)
+
+        self.main_ui = Main_Ui()
+        self.main_ui.setupUi(self)
+        self.setWindowTitle('QT Sample Dialog')
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    myWindow = MainDialog()
+    myWindow.show()
+    app.exec()
+
 
 
 
