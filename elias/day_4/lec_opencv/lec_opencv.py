@@ -30,7 +30,7 @@ class WebCam:
         camera_port_list = []
 
         for index in range(max_port_num):
-            cap = cv2.VideoCapture(index)
+            cap = cv2.VideoCapture(index, cv2.CAP_DSHOW)
             ret, frame = cap.read()
 
             if ret is True and frame is not None:
@@ -117,6 +117,7 @@ class WebCam:
     def record_video(self, video_file_name, fps=None, width=1280, height=720, flip=None):
         # 웹캠 객체생성
         cap = cv2.VideoCapture(self.port_num, cv2.CAP_DSHOW)
+        # cap = cv2.VideoCapture(self.port_num)
 
         # 웹캠 옵션설정
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
@@ -148,7 +149,7 @@ class WebCam:
                 break
 
             # 플립적용
-            if flip is None:
+            if flip is not None:
                 frame = cv2.flip(frame, flip)
 
             # 윈도우 화면에 영상출력
@@ -167,7 +168,35 @@ class WebCam:
         cv2.destroyWindow('frame')
         # cv2.destroyAllWindows()
 
+    ###################################################################
+    # Play Video File
+    ###################################################################
+    def play_video(self, file_name):
+        # 웹캠 객체생성
+        cap = cv2.VideoCapture(file_name)
+        fps = cap.get(cv2.CAP_PROP_FPS)
+        ic(fps)
 
+        while True:
+            # 저장된 영상 캡쳐
+            ret, frame = cap.read()
+
+            # 캡쳐 실패시 실행중단
+            if ret is False:
+                break
+
+            cv2.imshow('frame', frame)
+
+            # if cv2.waitKey(1) == ord('q'):
+            if cv2.waitKey(int(1000/fps)) == ord('q'):
+                break
+
+        # 객체핸들 릴리즈
+        cap.release()
+
+        # 윈도우 닫기
+        cv2.destroyWindow('frame')
+        # cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
@@ -199,11 +228,17 @@ if __name__ == '__main__':
     # cam.capture_video(flip=1)
     # cam.capture_video(isMono=True, flip=1)
 
+    ################################################################
+    # Record Video Stream
+    ################################################################
+    # file_name = f'{datetime.now().strftime("%Y_%m_%d_%H_%M_%S")}'
+    # cam.record_video(file_name, 10)
+    # cam.record_video(file_name, width=2048, height=1280)
 
-
-
-
-
+    ################################################################
+    # Play Video Stream
+    ################################################################
+    # cam.play_video('2024_11_22_10_47_10.avi')
 
 
 
