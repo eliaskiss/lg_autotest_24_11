@@ -273,7 +273,7 @@ class MainDialog(QDialog):
         row = int(self.main_ui.le_row.text())
         column = int(self.main_ui.le_column.text())
         self.add_log(
-            'TableWidget Item[%s,%s]: %s' % (row, column, self.main_ui.tableWidget.item(row, column).text()))
+            f'TableWidget Item[{row},{column}]: {self.main_ui.tableWidget.item(row, column).text()}'
 
     ###########################################################################################
     # ListWidget
@@ -299,7 +299,7 @@ class MainDialog(QDialog):
     # SpinBox
     def get_sp(self):
         value = self.main_ui.spinBox.value()
-        self.add_log('SpinBox: %s' % value)
+        self.add_log(f'SpinBox: {value}')
 
     def set_sp(self):
         self.main_ui.spinBox.setValue(10)
@@ -308,11 +308,11 @@ class MainDialog(QDialog):
     # RadioButton
     def get_rb(self):
         value = self.main_ui.radioButton_a.isChecked()
-        self.add_log('RadioButton A: %s' % value)
+        self.add_log(f'RadioButton A: {value}')
         value = self.main_ui.radioButton_b.isChecked()
-        self.add_log('RadioButton B: %s' % value)
+        self.add_log(f'RadioButton B: {value}')
         value = self.main_ui.checkBox.isChecked()
-        self.add_log('CheckBox: %s' % value)
+        self.add_log(f'CheckBox: {value}')
 
     def set_rb(self):
         self.main_ui.radioButton_a.setChecked(True)
