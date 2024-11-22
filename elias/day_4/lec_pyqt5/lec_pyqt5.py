@@ -83,6 +83,51 @@ class MainDialog(QDialog):
         self.main_ui.tb_log.append(log_message)
         logger.info(file_message)
 
+class ProcessThread(QThread):
+    logSignal = pyqtSignal(str)
+    countSignal = pyqtSignal(int)
+    stopSignal = pyqtSignal()
+
+    def __init__(self, param, interval=0.5, max_count=100):
+        super(self.__class__, self).__init__()
+        # super().__init__()
+        self.param = param
+        self.isRunning = True
+        self.interval = interval
+        self.max_count = max_count
+
+    def run(self):
+        self.logSignal.emit('Thread is started')
+        count = 1
+
+        while self.isRunning:
+            time.sleep(self.interval)
+            self.countSignal.emit(count)
+            count += 1
+
+            if count > self.max_count:
+                break
+
+        self.logSignal.emit('Thread is dead')
+        self.stopSignal.emit()
+
+    def stop(self):
+        self.isRunning = False
+        self.logSignal.emit('Thread is stopping...')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
