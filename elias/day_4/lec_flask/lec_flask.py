@@ -37,29 +37,24 @@ class Rest(Resource):
     def sum(self, params):
         a = params['a']
         b = params['b']
-
         return {'reuslt': 'OK', 'sum': a+b}
 
     def minus(self, params):
         a = params['a']
         b = params['b']
-
         return {'result': 'OK', 'minus':a - b}
 
     def multi(self, params):
         a = params['a']
         b = params['b']
-
         return {'result': 'OK', 'multi':a * b}
 
     def devide(self, params):
         a = params['a']
         b = params['b']
-
         return {'result': 'OK', 'devide':a / b}
 
     #######################################################################################
-
     def put(self):
         pass
 
@@ -81,15 +76,15 @@ class Rest(Resource):
                 resp = self.devide(params)
             else:
                 resp = {'result': 'fali', 'error': f'{command}는 지원하지 않습니다!!!'}
-
+                logger.error('Not supported command')
             return resp
-
         except Exception as e:
             message = f'--> Exception is {e} (Line: {sys.exc_info()[-1].tb_lineno})'
             logger.error(message)
             return {'result': 'fail', 'error': message}
 
 if __name__ == '__main__':
+    logger.info('Server is running...')
     app.run(debug=True, host='0.0.0.0', port=5000)
 
 
