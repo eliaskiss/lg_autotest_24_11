@@ -98,44 +98,126 @@ def put_data_to_db(excel_file_name):
 # execute_and_return(sql, values)
 ###################################################################################################
 def get_data_from_db(from_date, region, output_file_name):
-    # todo: Create new workbook
-    #...
+    # Create new workbook
+    wb = Workbook()
 
-    # todo: Select Worksheet
-    #...
+    # Select Worksheet
+    ws = wb.active
 
-    # todo: Rename Worksheet
-    #...
+    # Rename Worksheet
+    ws.title = '대여소현황'
 
-    # todo: Header 생성
+    # Header 생성
     #... tip: merge_cells를 사용해서 헤드설정
+    ws['A1'] = '대여소\n번호'
+    ws.merge_cells('A1:A5')
+
+    ws['B1'] = '보관소(대여소)명'
+    ws.merge_cells('B1:B5')
+
+    ws['C1'] = '소재지(위치)'
+    ws.merge_cells('C1:F2')
+
+    ws['C3'] = '자치구'
+    ws.merge_cells('C3:C5')
+
+    ws['D3'] = '상세주소'
+    ws.merge_cells('D3:D5')
+
+    ws['E3'] = '위도'
+    ws.merge_cells('E3:E5')
+
+    ws['F3'] = '경도'
+    ws.merge_cells('F3:F5')
+
+    ws['G1'] = '설치시기'
+    ws.merge_cells('G1:G5')
+
+    ws['H1'] = '설치형태'
+    ws.merge_cells('H1:I1')
+
+    ws['H2'] = 'LCD'
+    ws.merge_cells('H2:H3')
+
+    ws['H4'] = '거치대수'
+    ws.merge_cells('H4:H5')
+
+    ws['I2'] = 'QR'
+    ws.merge_cells('I2:I3')
+
+    ws['I4'] = '거치대수'
+    ws.merge_cells('I4:I5')
+
+    ws['J1'] = '운영방식'
+    ws.merge_cells('J1:J5')
 
     # DB 객체 생성 후 연결
     db = Database(DB_URL, DB_USER, DB_PW, DB_NAME)
     db.connect_db()
 
-    # todo: 조건에 맞는 데이터 가져오기
+    # 조건에 맞는 데이터 가져오기
     #... tip:  f'select * from {table_name} where date(install_date) >= %s and region = %s;'문을 사용
+    sql = f'select * from {table_name} where date(install_date) >= %s and region = %s;'
+    values = (from_date, region)
+    data_list = db.execute_and_return(sql, values)
 
-
-    # todo: data_list를 가지고 엑셀의 데이터 추가
+    # data_list를 가지고 엑셀의 데이터 추가
     #... tip: db로 부터 가져온 데이터를 ws.append를 사용해서 워크시트에 추가
+    for data in data_list:
+        # Way I
+        # ws.append([data['station_number'], data['station_name'], data['region'], data['address'],
+        #            data['latitude'], data['longitude'], data['install_date'], data['lcd_count'],
+        #            data['qr_count'], data['proc_type']])
 
-    # todo: Excel Styling
+        # Way II
+        ws.append([elem for elem in list(data.values())[2:]])
+
+    # Excel Styling
     #... tip: Thin과 Border를 사용해서 셀의 외곽선 설정
     #         Font를 사용해서 폰트색상 및 스타일(Bold) 설정
     #         PatternFill을 사용해서 셀의 배경색 설정
+    thin_border = Border(left=Side(style='thin'),
+                         right=Side(style='thin'),
+                         top=Side(style='thin'),
+                         bottom=Side(style='thin'))
 
-    # todo: Header Style 적용
+    bold_white_font = Font(bold=True,
+                           size=12,
+                           italic=None,
+                           underline=None,
+                           strike=None,
+                           color='FFFFFF')
+
+    background_fill = PatternFill(start_color='525E75',
+                                  end_color='525E75',
+                                  fill_type='solid')
+
+    # Header Style 적용
     #... tip: 위에서 생성한 PatternFill과 Font을 사용해서, fill속성과 font속성 적용
+    for row in ws.iter_rows(max_row=5):
+        for cell in row:
+            cell.fill = background_fill
+            cell.font = bold_white_font
 
-    # todo: 테두리 적용 : thin_border
+    # 테두리 적용 : thin_border
     #... tip: 위에서 생성한 thin, border를 가지고 border속성에 적용
+    for col in ws.columns:
+        for cell in col:
+            cell.alignment = Alignment(wrap_text=True, horizontal='center', vertical='center')
+            cell.border = thin_border
 
-    # todo: 작성한 엑셀을 저장
-    #... tip: wb.save 사용
+    dims = {}
+    for row in ws.rows:
+        for cell in row:
+            if cell.value:
+                dims[cell.column] = max((dims.get(cell.column, 0), len(str(cell.value)) * 2))
+    for col, value in dims.items():
+        ws.column_dimensions[chr(ord('A') + (col - 1))].width = value # A, B, C, D ....
 
+    # 작성한 엑셀을 저장
+    # wb.save 사용
+    wb.save(output_file_name)
 
 if __name__ == '__main__':
-    put_data_to_db('public_bicycle.xlsx')
-    # get_data_from_db('2020-01-01', '서초구', 'new_excel.xlsx')
+    # put_data_to_db('public_bicycle.xlsx')
+    get_data_from_db('2020-01-01', '서초구', 'new_excel.xlsx')
