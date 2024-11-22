@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MyPython"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "LG"
 #define MyAppExeName "lec_pyqt5.exe"
 
@@ -10,7 +10,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{AB2C1F6D-9EC5-427F-A3E7-E5AC8AC5ACE5}
+AppId={{DCEA275C-38BF-45D6-A53C-113710CC5071}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
@@ -18,7 +18,7 @@ DefaultDirName="C:/MyPython"
 DefaultGroupName=MyPython
 DisableDirPage=yes
 DisableProgramGroupPage=yes
-OutputDir=C:\source\lg_autotest_24_09\Elias\day_4\inno_output
+OutputDir=D:\Source\lg_autotest_24_11\elias\day_4\inno_output
 OutputBaseFilename=MyPython
 Compression=lzma
 SolidCompression=yes
@@ -30,7 +30,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "c:\source\lg_autotest_24_09\Elias\day_4\lec_pyqt5\dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "D:\Source\lg_autotest_24_11\elias\day_4\lec_pyqt5\dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
