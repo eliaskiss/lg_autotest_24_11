@@ -97,7 +97,7 @@ class WebCam:
             # 플립적용
             if flip is not None:
                 # flip: 0 -> bottom to top, 1 -> left to right
-                frame = cv2.filp(frame, flip)
+                frame = cv2.flip(frame, flip)
 
             cv2.imshow('frame', frame)
 
@@ -111,6 +111,21 @@ class WebCam:
         cv2.destroyWindow('frame')
         # cv2.destroyAllWindows()
 
+    ###################################################################
+    # Capture Video Stream
+    ###################################################################
+    def capture_video(self, width=1280, height=720, isMono=False, flip=None):
+        # 웹캠 객체생성
+        cap = cv2.VideoCapture(self.port_num, cv2.CAP_DSHOW)
+
+        # 웹캠 옵션설정
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+        cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
+
+        while True:
+            # 현재 영상 캡쳐
+            ret, frame = cap.read()
 
 
 
@@ -127,15 +142,22 @@ if __name__ == '__main__':
     ################################################################
     # Capture Image(Snapshot)
     ################################################################
-    file_name = f'{datetime.now().strftime("%Y_%m_%d_%H_%M_%S")}.png'
-    ret, file_name = cam.capture_image(file_name)
-    if ret is True:
-        ic(file_name)
-    else:
-        ic('Capture is fail')
+    # file_name = f'{datetime.now().strftime("%Y_%m_%d_%H_%M_%S")}.png'
+    # ret, file_name = cam.capture_image(file_name)
+    # if ret is True:
+    #     ic(file_name)
+    # else:
+    #     ic('Capture is fail')
 
-
-
+    ################################################################
+    # Capture Video Stream
+    ################################################################
+    # cam.capture_video()
+    # cam.capture_video(800, 600)
+    # cam.capture_video(isMono=True)
+    # cam.capture_video(flip=0)
+    # cam.capture_video(flip=1)
+    # cam.capture_video(isMono=True, flip=1)
 
 
 
