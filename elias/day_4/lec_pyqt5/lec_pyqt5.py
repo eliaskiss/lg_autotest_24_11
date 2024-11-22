@@ -53,21 +53,29 @@ class MainDialog(QDialog):
         # Exit
         self.main_ui.btn_exit.clicked.connect(self.close_dialog)
 
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Escape:
-            pass
+        # Thread
+        self.main_ui.btn_start.clicked.connect(self.start_thread)
+        self.main_ui.btn_stop.clicked.connect(self.stop_thread)
 
-    def close_dialog(self):
-        self.close()
-        # self.exit(0)
+    def start_thread(self):
+        try:
+            max_count = 100
+            self.main_ui.progressBar.setMinimum(0)
+            self.main_ui.progressBar.setMaximum(max_count)
+            self.main_ui.progressBar.setValue(0)
 
-    def get_le(self):
-        value = self.main_ui.lineEdit.text()
-        self.add_log(f'LineEdit: {value}')
+            interval = 0.1
+            self.my_thread = ProcessThread(None, interval, max_count)
+            self.my_thread.logSignal.connect(self.add_log)
+            self.my_thread.stopSignal.connect(self.thread_is_stopped)
+            self.my_thread.countSignal.connect(self.count)
+            self.my_thread.start()
 
-    def set_le(self):
-        self.main_ui.lineEdit.setText('World')
+            self.set_enable_buttons(False)
+        except Exception as e:
+            print('--> Exception is "%s" (Line: %s)' % (e, sys.exc_info()[-1].tb_lineno))
 
+    @pyqtSlot(str)
     def add_log(self, message):
         now = datetime.now()
         now = now.strftime('%H:%M:%S')
@@ -82,6 +90,35 @@ class MainDialog(QDialog):
         file_message = f'{message} <{func_name}:{line_no}>'
         self.main_ui.tb_log.append(log_message)
         logger.info(file_message)
+
+    @pyqtSlot(int)
+    def count(self, count):
+        sef.add_log(f'ProgressBar Value: {count}')
+        self.main_ui.progressBar.setValue(count)
+
+    @pyqtSlot()
+    def thread_is_stopped(self):
+        self.set_enable_buttons(True)
+        self.main_ui.progressBar.setValue(0)
+
+    def set_enable_buttons(self, enable):
+        self.main_ui.btn_start.setEnabled(enable)
+        self.main_ui.btn_stop.setEnabled(not enable)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            pass
+
+    def close_dialog(self):
+        self.close()
+        # self.exit(0)
+
+    def get_le(self):
+        value = self.main_ui.lineEdit.text()
+        self.add_log(f'LineEdit: {value}')
+
+    def set_le(self):
+        self.main_ui.lineEdit.setText('World')
 
 class ProcessThread(QThread):
     logSignal = pyqtSignal(str)
