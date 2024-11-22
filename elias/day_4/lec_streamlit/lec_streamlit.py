@@ -3,12 +3,10 @@ import time
 import pandas as pd
 import datetime
 
-# st.set_page_config(layout='wide')
-st.set_page_config(layout='centered')
+st.set_page_config(layout='wide')
+# st.set_page_config(layout='centered')
 
 st.title('Streamlit Dialog')
-
-col1, col2 = st.columns(2)
 
 if 'input_value' not in st.session_state:
     st.session_state['input_value'] = 'Hi~ How are you?'
@@ -36,7 +34,7 @@ st.header('Progress Bar')
 progress_bar = st.progress(0, text='Ready')
 
 col1, col2 = st.columns(2)
-if col1.button("Start", use_container_width=True):
+if col1.button("Start", use_container_width=False):
     for i in range(100):
         progress_bar.progress(i, text='Running...')
         time.sleep(0.1)
