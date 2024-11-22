@@ -75,6 +75,10 @@ class MainDialog(QDialog):
         except Exception as e:
             print('--> Exception is "%s" (Line: %s)' % (e, sys.exc_info()[-1].tb_lineno))
 
+    def stop_thread(self):
+        if self.my_thread is not None:
+            self.my_thread.stop()
+
     @pyqtSlot(str)
     def add_log(self, message):
         now = datetime.now()
