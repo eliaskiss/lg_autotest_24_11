@@ -74,7 +74,42 @@ class WebCam:
     # Capture Video Stream
     ###################################################################
     def capture_video(self, width=1280, height=720, isMono=False, flip=None):
+        # 웹캠 객체생성
+        cap = cv2.VideoCapture(self.port_num, cv2.CAP_DSHOW)
 
+        # 웹캠 옵션설정
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+        cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
+
+        while True:
+            # 현재 영상 캡쳐
+            ret, frame = cap.read()
+
+            # 캡쳐 실패시 실행중단
+            if ret is False:
+                break
+
+            # 흑백전환
+            if isMono is True:
+                frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+
+            # 플립적용
+            if flip is not None:
+                # flip: 0 -> bottom to top, 1 -> left to right
+                frame = cv2.filp(frame, flip)
+
+            cv2.imshow('frame', frame)
+
+            if cv2.waitKey(1) == ord('q'):
+                break
+
+        # 객체핸들 릴리즈
+        cap.release()
+
+        # 윈도우 닫기
+        cv2.destroyWindow('frame')
+        # cv2.destroyAllWindows()
 
 
 
