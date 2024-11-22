@@ -50,12 +50,23 @@ class MainDialog(QDialog):
         self.main_ui.btn_get_le.clicked.connect(self.get_le)
         self.main_ui.btn_set_le.clicked.connect(self.set_le)
 
+        # Exit
+        self.main_ui.btn_exit.clicked.connect(self.close_dialog)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            pass
+
+    def close_dialog(self):
+        self.close()
+        # self.exit(0)
+
     def get_le(self):
         value = self.main_ui.lineEdit.text()
-
+        self.add_log(f'LineEdit: {value}')
 
     def set_le(self):
-        pass
+        self.main_ui.lineEdit.setText('World')
 
     def add_log(self, message):
         now = datetime.now()
