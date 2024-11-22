@@ -112,9 +112,9 @@ class WebCam:
         # cv2.destroyAllWindows()
 
     ###################################################################
-    # Capture Video Stream
+    # Record Video Stream with AVI codec
     ###################################################################
-    def capture_video(self, width=1280, height=720, isMono=False, flip=None):
+    def record_video(self, video_file_name, fps=None, width=1280, height=720, flip=None):
         # 웹캠 객체생성
         cap = cv2.VideoCapture(self.port_num, cv2.CAP_DSHOW)
 
@@ -123,9 +123,49 @@ class WebCam:
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
         cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
 
+        # 코덱설정
+        # fourcc = cv2.VideoWriter_fourcc('D', 'I', 'V', 'X')
+        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+
+        # 실제 적용된 크기
+        frame_size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
+                      int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+
+        # FPS 확인
+        if fps is None:
+            fps = cap.get(cv2.CAP_PROP_FPS)
+        ic(fps)
+
+        # Writer 객체
+        out = cv2.VideoWriter(f'{video_file_name}.avi', fourcc, fps, frame_size)
+
         while True:
             # 현재 영상 캡쳐
             ret, frame = cap.read()
+
+            # 캡쳐 실패시 실행중단
+            if ret is False:
+                break
+
+            # 플립적용
+            if flip is None:
+                frame = cv2.flip(frame, flip)
+
+            # 윈도우 화면에 영상출력
+            cv2.imshow('frame', frame)
+
+            # 동영상파일에 Frame 저장
+            out.write(frame)
+
+            if cv2.waitKey(1) == ord('q'):
+                break
+
+        # 객체핸들 릴리즈
+        cap.release()
+
+        # 윈도우 닫기
+        cv2.destroyWindow('frame')
+        # cv2.destroyAllWindows()
 
 
 
